@@ -12,3 +12,5 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     </BrowserRouter>
   </React.StrictMode>
 )
+import { inject } from '@vercel/analytics'
+inject()

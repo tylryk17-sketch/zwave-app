@@ -10,6 +10,7 @@
   "dependencies": {
     "@stripe/stripe-js": "^9.8.0",
     "@supabase/supabase-js": "^2.108.1",
+    "@vercel/analytics": "^2.0.1",
     "lucide-react": "^0.383.0",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
