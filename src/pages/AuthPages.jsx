@@ -3,7 +3,7 @@ import { useApp } from '../context/AppContext'
 import { Input, Btn } from '../components/UI'
 
 export function LoginPage({ onNavigate }) {
-  const { login, notify } = useApp()
+  const { login } = useApp()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
@@ -45,7 +45,8 @@ export function LoginPage({ onNavigate }) {
           </button>
           <h1 style={{ fontFamily:"'Playfair Display',serif", fontSize:'32px', fontWeight:400, marginBottom:'0.5rem' }}>Log in</h1>
           <p style={{ fontSize:'14px', color:'var(--warm)', marginBottom:'2rem', fontWeight:300 }}>
-            Don't have an account? <button onClick={() => onNavigate('signup')} style={{ background:'none', border:'none', color:'var(--gold)', cursor:'pointer', fontFamily:'inherit', fontSize:'14px', fontWeight:500 }}>Sign up</button>
+            Don't have an account?{' '}
+            <button onClick={() => onNavigate('signup')} style={{ background:'none', border:'none', color:'var(--gold)', cursor:'pointer', fontFamily:'inherit', fontSize:'14px', fontWeight:500 }}>Sign up</button>
           </p>
           <form onSubmit={handleSubmit} style={{ display:'flex', flexDirection:'column', gap:'1rem' }}>
             <Input label="Email address" type="email" value={email} onChange={e=>setEmail(e.target.value)} placeholder="your@email.com" required />
@@ -62,26 +63,6 @@ export function LoginPage({ onNavigate }) {
               {loading ? 'Signing in…' : 'Sign in'}
             </Btn>
           </form>
-
-          {/* Demo accounts */}
-          <div style={{ marginTop:'1.75rem', padding:'1rem', background:'var(--paper2)', border:'0.5px solid var(--line)', borderRadius:'12px' }}>
-            <div style={{ fontSize:'11px', fontWeight:600, color:'var(--warm)', letterSpacing:'0.06em', textTransform:'uppercase', marginBottom:'0.75rem' }}>Try a demo account</div>
-            <div style={{ display:'flex', flexDirection:'column', gap:'0.5rem' }}>
-              {[['organizer@demo.com','Organizer view','📊'],['promoter@demo.com','Promoter view','🔗'],['fan@demo.com','Fan / attendee view','🎟']].map(([email, label, icon]) => (
-                <button key={email} onClick={() => login(email, 'demo').then(() => onNavigate('dashboard'))}
-                  style={{ display:'flex', alignItems:'center', gap:'10px', background:'var(--paper)', border:'0.5px solid var(--line)', borderRadius:'8px', padding:'9px 12px', cursor:'pointer', fontFamily:'inherit', transition:'all 0.15s', textAlign:'left' }}
-                  onMouseEnter={e => e.currentTarget.style.borderColor='var(--gold)'}
-                  onMouseLeave={e => e.currentTarget.style.borderColor='var(--line)'}
-                >
-                  <span style={{ fontSize:'18px' }}>{icon}</span>
-                  <div>
-                    <div style={{ fontSize:'12px', fontWeight:500, color:'var(--ink)' }}>{label}</div>
-                    <div style={{ fontSize:'11px', color:'var(--warm)' }}>{email}</div>
-                  </div>
-                </button>
-              ))}
-            </div>
-          </div>
         </div>
       </div>
     </div>
@@ -89,7 +70,7 @@ export function LoginPage({ onNavigate }) {
 }
 
 export function SignupPage({ onNavigate, defaultRole }) {
-  const { signup, notify } = useApp()
+  const { signup } = useApp()
   const [step, setStep] = useState(1)
   const [role, setRole] = useState(defaultRole || '')
   const [form, setForm] = useState({ name:'', email:'', password:'' })
@@ -141,7 +122,7 @@ export function SignupPage({ onNavigate, defaultRole }) {
                 <div key={r.id} onClick={() => setRole(r.id)} style={{
                   display:'flex', gap:'1rem', alignItems:'flex-start',
                   padding:'1.1rem 1.25rem', borderRadius:'12px', cursor:'pointer',
-                  border: `0.5px solid ${role===r.id ? 'var(--gold)' : 'var(--line)'}`,
+                  border:`0.5px solid ${role===r.id ? 'var(--gold)' : 'var(--line)'}`,
                   background: role===r.id ? 'rgba(184,122,20,0.05)' : 'var(--paper2)',
                   transition:'all 0.15s'
                 }}>
@@ -156,13 +137,16 @@ export function SignupPage({ onNavigate, defaultRole }) {
             </div>
             <Btn variant="primary" size="lg" style={{ width:'100%', borderRadius:'12px' }} disabled={!role} onClick={() => setStep(2)}>Continue →</Btn>
             <p style={{ fontSize:'13px', color:'var(--warm)', textAlign:'center', marginTop:'1.25rem' }}>
-              Already have an account? <button onClick={() => onNavigate('login')} style={{ background:'none', border:'none', color:'var(--gold)', cursor:'pointer', fontFamily:'inherit', fontSize:'13px', fontWeight:500 }}>Log in</button>
+              Already have an account?{' '}
+              <button onClick={() => onNavigate('login')} style={{ background:'none', border:'none', color:'var(--gold)', cursor:'pointer', fontFamily:'inherit', fontSize:'13px', fontWeight:500 }}>Log in</button>
             </p>
           </>
         ) : (
           <>
             <h1 style={{ fontFamily:"'Playfair Display',serif", fontSize:'32px', fontWeight:400, marginBottom:'0.5rem' }}>Create account</h1>
-            <p style={{ fontSize:'14px', color:'var(--warm)', marginBottom:'2rem', fontWeight:300 }}>Signing up as <strong style={{ color:'var(--gold)' }}>{roles.find(r=>r.id===role)?.title}</strong></p>
+            <p style={{ fontSize:'14px', color:'var(--warm)', marginBottom:'2rem', fontWeight:300 }}>
+              Signing up as <strong style={{ color:'var(--gold)' }}>{roles.find(r=>r.id===role)?.title}</strong>
+            </p>
             <form onSubmit={handleSubmit} style={{ display:'flex', flexDirection:'column', gap:'1rem' }}>
               <Input label="Full name" value={form.name} onChange={e=>setForm({...form,name:e.target.value})} placeholder="Your name" required />
               <Input label="Email address" type="email" value={form.email} onChange={e=>setForm({...form,email:e.target.value})} placeholder="your@email.com" required />
@@ -172,7 +156,11 @@ export function SignupPage({ onNavigate, defaultRole }) {
                   ⚠️ {error}
                 </div>
               )}
-              <p style={{ fontSize:'11px', color:'var(--warm)', lineHeight:1.5 }}>By creating an account you agree to our <span style={{ color:'var(--gold)' }}>Terms of Service</span> and <span style={{ color:'var(--gold)' }}>Privacy Policy</span>.</p>
+              <p style={{ fontSize:'11px', color:'var(--warm)', lineHeight:1.5 }}>
+                By creating an account you agree to our{' '}
+                <span onClick={() => onNavigate('terms')} style={{ color:'var(--gold)', cursor:'pointer' }}>Terms of Service</span> and{' '}
+                <span onClick={() => onNavigate('privacy')} style={{ color:'var(--gold)', cursor:'pointer' }}>Privacy Policy</span>.
+              </p>
               <Btn variant="ember" size="lg" style={{ width:'100%', borderRadius:'12px', marginTop:'0.5rem' }} disabled={loading}>
                 {loading ? 'Creating account…' : 'Create my account'}
               </Btn>
