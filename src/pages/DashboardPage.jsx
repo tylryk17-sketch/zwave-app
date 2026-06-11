@@ -524,3 +524,62 @@ function LeadCapture() {
     </div>
   )
 }
+
+// ── STRIPE CONNECT COMPONENT ─────────────────────────────────
+function StripeConnect() {
+  const { user, notify } = useApp()
+  const [loading, setLoading] = useState(false)
+  const [connected, setConnected] = useState(false)
+
+  const handleConnect = async () => {
+    setLoading(true)
+    try {
+      const res = await fetch('/api/create-connect-account', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: user.email, name: user.name })
+      })
+      const data = await res.json()
+      if (data.onboardingUrl) {
+        window.location.href = data.onboardingUrl
+      }
+    } catch (err) {
+      notify('Error connecting Stripe. Please try again.', 'error')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  return (
+    <div style={{ background:'var(--paper)', border:'0.5px solid var(--line)', borderRadius:'16px', padding:'2rem', marginBottom:'1.5rem' }}>
+      <div style={{ display:'flex', justifyContent:'space-between', alignItems:'flex-start', flexWrap:'wrap', gap:'1rem' }}>
+        <div>
+          <div style={{ fontSize:'10.5px', fontWeight:600, letterSpacing:'0.14em', textTransform:'uppercase', color:'var(--gold)', marginBottom:'0.4rem' }}>Payouts</div>
+          <h3 style={{ fontFamily:"'Playfair Display',serif", fontSize:'22px', fontWeight:400, marginBottom:'0.5rem' }}>Get paid <em style={{ color:'var(--gold)' }}>instantly.</em></h3>
+          <p style={{ fontSize:'14px', color:'var(--warm)', lineHeight:1.6, fontWeight:300, maxWidth:'480px' }}>Connect your bank account via Stripe to receive payouts instantly after every ticket sale. Money hits your account in seconds.</p>
+        </div>
+        <div style={{ display:'flex', flexDirection:'column', gap:'0.75rem', alignItems:'flex-end' }}>
+          {connected ? (
+            <div style={{ display:'flex', alignItems:'center', gap:'8px', background:'rgba(45,158,95,0.1)', border:'0.5px solid rgba(45,158,95,0.25)', borderRadius:'100px', padding:'8px 16px', fontSize:'13px', fontWeight:500, color:'var(--green)' }}>
+              ✓ Stripe connected
+            </div>
+          ) : (
+            <button onClick={handleConnect} disabled={loading} style={{ display:'flex', alignItems:'center', gap:'10px', background:'#635BFF', color:'#fff', border:'none', borderRadius:'100px', padding:'12px 24px', fontSize:'14px', fontWeight:600, cursor:loading?'not-allowed':'pointer', fontFamily:'inherit', opacity:loading?0.7:1, transition:'opacity 0.2s' }}>
+              {loading ? 'Connecting...' : '⚡ Connect with Stripe'}
+            </button>
+          )}
+          <p style={{ fontSize:'11px', color:'var(--warm)', textAlign:'right' }}>Secured by Stripe · Instant bank transfers</p>
+        </div>
+      </div>
+      <div style={{ display:'grid', gridTemplateColumns:'repeat(3,1fr)', gap:'1rem', marginTop:'1.5rem' }}>
+        {[['⚡','Instant','Money in seconds'],['🔒','Secure','Bank-level encryption'],['💳','Any bank','All US banks supported']].map(([icon,title,desc]) => (
+          <div key={title} style={{ background:'var(--paper2)', borderRadius:'10px', padding:'1rem', textAlign:'center' }}>
+            <div style={{ fontSize:'22px', marginBottom:'4px' }}>{icon}</div>
+            <div style={{ fontSize:'13px', fontWeight:500, color:'var(--ink)', marginBottom:'2px' }}>{title}</div>
+            <div style={{ fontSize:'11px', color:'var(--warm)' }}>{desc}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
