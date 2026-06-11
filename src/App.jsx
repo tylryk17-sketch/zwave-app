@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { AppProvider } from './context/AppContext'
+import { AppProvider, useApp } from './context/AppContext'
 import { Nav, Footer } from './components/UI'
+import { ErrorBoundary, PageErrorBoundary } from './components/ErrorBoundary'
 import HomePage from './pages/HomePage'
 import DiscoverPage from './pages/DiscoverPage'
 import EventPage from './pages/EventPage'
@@ -15,7 +16,44 @@ import OrganizerPage from './pages/OrganizerPage'
 // Pages that don't show the nav/footer
 const BARE_PAGES = ['login', 'signup']
 
+// Pages that require authentication
+const AUTH_REQUIRED = ['dashboard', 'create-event', 'checkout', 'profile']
+
+// Pages that require specific roles
+const ROLE_REQUIRED = {
+  'create-event': 'organizer',
+}
+
+// Auth guard component
+function AuthGuard({ page, user, loading, onNavigate, children }) {
+  useEffect(() => {
+    if (loading) return
+    if (AUTH_REQUIRED.includes(page) && !user) {
+      onNavigate('login')
+      return
+    }
+    if (ROLE_REQUIRED[page] && user && user.role !== ROLE_REQUIRED[page] && !user.isDemo) {
+      onNavigate('dashboard')
+      return
+    }
+  }, [page, user, loading])
+
+  if (loading) return (
+    <div style={{ minHeight:'100svh', display:'flex', alignItems:'center', justifyContent:'center' }}>
+      <div style={{ display:'flex', flexDirection:'column', alignItems:'center', gap:'1rem' }}>
+        <div style={{ width:'32px', height:'32px', border:'2px solid var(--paper3)', borderTop:'2px solid var(--gold)', borderRadius:'50%', animation:'spin 0.8s linear infinite' }}/>
+        <div style={{ fontSize:'14px', color:'var(--warm)' }}>Loading…</div>
+      </div>
+    </div>
+  )
+
+  if (AUTH_REQUIRED.includes(page) && !user) return null
+
+  return children
+}
+
 function AppInner() {
+  const { user, loading } = useApp()
   const [page, setPage] = useState('home')
   const [pageParams, setPageParams] = useState({})
 
@@ -52,7 +90,11 @@ function AppInner() {
     <div style={{ minHeight:'100svh', display:'flex', flexDirection:'column' }}>
       {!bare && <Nav onNavigate={navigate} currentPage={page} />}
       <main style={{ flex:1 }}>
-        {renderPage()}
+        <AuthGuard page={page} user={user} loading={loading} onNavigate={navigate}>
+          <PageErrorBoundary>
+            {renderPage()}
+          </PageErrorBoundary>
+        </AuthGuard>
       </main>
       {!bare && <Footer onNavigate={navigate} />}
     </div>
@@ -76,8 +118,10 @@ function NotFound({ onNavigate }) {
 
 export default function App() {
   return (
-    <AppProvider>
-      <AppInner />
-    </AppProvider>
+    <ErrorBoundary>
+      <AppProvider>
+        <AppInner />
+      </AppProvider>
+    </ErrorBoundary>
   )
 }
