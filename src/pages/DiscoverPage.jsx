@@ -34,7 +34,7 @@ function UniversalEventCard({ event, onNavigate }) {
 
   const handleClick = () => {
     if (event.isExternal) {
-      window.open(event.externalUrl, '_blank')
+      window.open(event.externalUrl, '_blank', 'noopener,noreferrer')
     } else {
       onNavigate('event', event.id)
     }

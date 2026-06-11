@@ -41,7 +41,7 @@ const MOCK_REVIEWS = {
 
 export function AppProvider({ children }) {
   const [user, setUser] = useState(null)
-  const [events, setEvents] = useState(MOCK_EVENTS)
+  const [events, setEvents] = useState([])
   const [cart, setCart] = useState([])
   const [notifications, setNotifications] = useState([])
   const [following, setFollowing] = useState([])
