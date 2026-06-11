@@ -491,7 +491,7 @@ export default function EventPage({ eventId, onNavigate }) {
 
                 {/* Gift toggle */}
                 <div style={{ marginBottom:'1rem' }}>
-                  <button onClick={()=>setGiftMode(!giftMode)} style={{ display:'flex', alignItems:'center', gap:'8px', background:'none', border:'0.5px solid var(--line)', borderRadius:'100px', padding:'7px 14px', fontSize:'13px', color: giftMode?'var(--gold)':'var(--warm)', cursor:'pointer', fontFamily:'inherit', width:'100%', justifyContent:'center', transition:'all 0.15s',
+                  <button onClick={()=>setGiftMode(!giftMode)} style={{ display:'flex', alignItems:'center', gap:'8px', border:'0.5px solid var(--line)', borderRadius:'100px', padding:'7px 14px', fontSize:'13px', color: giftMode?'var(--gold)':'var(--warm)', cursor:'pointer', fontFamily:'inherit', width:'100%', justifyContent:'center', transition:'all 0.15s',
                     borderColor: giftMode?'var(--gold)':'var(--line)',
                     background: giftMode?'rgba(184,122,20,0.05)':'transparent'
                   }}>

@@ -115,8 +115,9 @@ export function Nav({ onNavigate, currentPage }) {
 }
 
 // ── FOOTER ───────────────────────────────────────────────────
-export function Footer() {
-  const navigate = useNavigate()
+export function Footer({ onNavigate }) {
+  const _rr = (() => { try { return useNavigate() } catch { return null } })()
+  const navigate = onNavigate ?? ((page) => _rr && _rr('/' + page))
   return (
     <footer style={{ background: 'var(--ink)', borderTop: '0.5px solid rgba(253,250,245,0.05)', padding: '2.5rem 1.75rem' }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
@@ -233,11 +234,14 @@ Card.propTypes = {
 }
 
 // ── EVENT CARD ───────────────────────────────────────────────
-export function EventCard({ event }) {
-  const navigate = useNavigate()
+export function EventCard({ event, onNavigate }) {
+  const _rr = (() => { try { return useNavigate() } catch { return null } })()
+  const goToEvent = onNavigate
+    ? () => onNavigate('event', event.id)
+    : () => _rr && _rr(`/event/${event.id}`)
   const pct = Math.round((event.sold / event.capacity) * 100)
   return (
-    <Card onClick={() => navigate(`/event/${event.id}`)} style={{ position: 'relative' }}>
+    <Card onClick={goToEvent} style={{ position: 'relative' }}>
       <div style={{ aspectRatio: '16/9', position: 'relative', background: `linear-gradient(135deg,${event.color1},${event.color2})` }}>
         <div style={{ position: 'absolute', top: '0.75rem', left: '0.75rem', background: 'rgba(12,7,2,0.5)', backdropFilter: 'blur(8px)', border: '0.5px solid rgba(253,250,245,0.12)', borderRadius: '100px', padding: '4px 10px', fontSize: '10px', fontWeight: 500, color: 'rgba(253,250,245,0.85)' }}>{event.badge}</div>
         <div style={{ position: 'absolute', top: '0.75rem', right: '0.75rem', background: 'var(--paper)', borderRadius: '100px', padding: '3px 9px', fontSize: '11px', fontWeight: 600, color: 'var(--ink)', display: 'flex', alignItems: 'center', gap: '3px' }}>✨ {event.vibe}</div>
@@ -259,6 +263,7 @@ export function EventCard({ event }) {
 }
 
 EventCard.propTypes = {
+  onNavigate: PropTypes.func,
   event: PropTypes.shape({
     id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
