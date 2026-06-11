@@ -288,7 +288,7 @@ export function CheckoutPage({ onNavigate }) {
                 </div>
               </div>
               <div style={{ marginTop:'1rem', display:'flex', alignItems:'center', gap:'6px', fontSize:'12px', color:'var(--warm)' }}>
-                🔒 Secured by <strong>Stripe</strong> — your card details are encrypted and never stored on our servers
+                🔒 Your card details are encrypted and secured. Zwave never stores your payment information.
               </div>
             </div>
 
