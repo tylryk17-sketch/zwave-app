@@ -12,6 +12,7 @@ import { CartPage, CheckoutPage } from './pages/CartCheckout'
 import { ProfilePage, PricingPage } from './pages/ProfilePricing'
 import PromotersPage from './pages/PromotersPage'
 import OrganizerPage from './pages/OrganizerPage'
+import DemoPage from './pages/DemoPage'
 import { PrivacyPage, TermsPage } from './pages/LegalPages'
 
 const BARE_PAGES = ['login', 'signup']
@@ -59,6 +60,7 @@ function AppInner() {
       case 'promoters':    return <PromotersPage onNavigate={navigate} />
       case 'organizer':    return <OrganizerPage organizerName={pageParams.param} onNavigate={navigate} />
       case 'privacy':      return <PrivacyPage onNavigate={navigate} />
+      case 'demo':         return <DemoPage onNavigate={navigate} />
       case 'terms':        return <TermsPage onNavigate={navigate} />
       default:             return <NotFound onNavigate={navigate} />
     }
