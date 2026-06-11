@@ -68,7 +68,7 @@ export function LoginPage({ onNavigate }) {
             <div style={{ fontSize:'11px', fontWeight:600, color:'var(--warm)', letterSpacing:'0.06em', textTransform:'uppercase', marginBottom:'0.75rem' }}>Try a demo account</div>
             <div style={{ display:'flex', flexDirection:'column', gap:'0.5rem' }}>
               {[['organizer@demo.com','Organizer view','📊'],['promoter@demo.com','Promoter view','🔗'],['fan@demo.com','Fan / attendee view','🎟']].map(([email, label, icon]) => (
-                <button key={email} onClick={() => { login(email, 'demo', email.split('@')[0]); notify('Logged in as demo ' + email.split('@')[0], 'success'); onNavigate('dashboard') }}
+                <button key={email} onClick={() => login(email, 'demo').then(() => onNavigate('dashboard'))}
                   style={{ display:'flex', alignItems:'center', gap:'10px', background:'var(--paper)', border:'0.5px solid var(--line)', borderRadius:'8px', padding:'9px 12px', cursor:'pointer', fontFamily:'inherit', transition:'all 0.15s', textAlign:'left' }}
                   onMouseEnter={e => e.currentTarget.style.borderColor='var(--gold)'}
                   onMouseLeave={e => e.currentTarget.style.borderColor='var(--line)'}
