@@ -176,8 +176,9 @@ export function CheckoutPage({ onNavigate }) {
     if (!form.name || !form.email || !cardNum || !expiry || !cvv) { notify('Please fill in all fields', 'error'); return }
     setProcessing(true)
 
-    // In production: create PaymentIntent on server, confirm with Stripe.js
-    // For now simulate a successful payment
+    // IMPORTANT: when wiring real Stripe, create the PaymentIntent on your server
+    // (passing cart item IDs, not prices) and confirm with stripe.confirmCardPayment().
+    // Never trust client-supplied prices — always look up prices server-side.
     setTimeout(() => {
       const generated = []
       cart.forEach(item => {

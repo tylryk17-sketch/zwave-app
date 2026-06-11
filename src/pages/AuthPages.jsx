@@ -7,17 +7,21 @@ export function LoginPage({ onNavigate }) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     if (!email || !password) return
+    setError('')
     setLoading(true)
-    setTimeout(() => {
-      login(email, password)
-      notify('Welcome back! 🎉', 'success')
+    try {
+      await login(email, password)
       onNavigate('home')
+    } catch (err) {
+      setError(err.message || 'Invalid email or password. Please try again.')
+    } finally {
       setLoading(false)
-    }, 800)
+    }
   }
 
   return (
@@ -46,6 +50,11 @@ export function LoginPage({ onNavigate }) {
           <form onSubmit={handleSubmit} style={{ display:'flex', flexDirection:'column', gap:'1rem' }}>
             <Input label="Email address" type="email" value={email} onChange={e=>setEmail(e.target.value)} placeholder="your@email.com" required />
             <Input label="Password" type="password" value={password} onChange={e=>setPassword(e.target.value)} placeholder="••••••••" required />
+            {error && (
+              <div style={{ background:'rgba(194,48,16,0.08)', border:'0.5px solid rgba(194,48,16,0.25)', borderRadius:'8px', padding:'10px 14px', fontSize:'13px', color:'var(--ember)' }}>
+                ⚠️ {error}
+              </div>
+            )}
             <div style={{ textAlign:'right' }}>
               <button type="button" style={{ background:'none', border:'none', fontSize:'13px', color:'var(--gold)', cursor:'pointer', fontFamily:'inherit' }}>Forgot password?</button>
             </div>
@@ -85,17 +94,22 @@ export function SignupPage({ onNavigate, defaultRole }) {
   const [role, setRole] = useState(defaultRole || '')
   const [form, setForm] = useState({ name:'', email:'', password:'' })
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     if (!form.name || !form.email || !form.password || !role) return
+    if (form.password.length < 8) { setError('Password must be at least 8 characters.'); return }
+    setError('')
     setLoading(true)
-    setTimeout(() => {
-      signup({ ...form, role })
-      notify('Welcome to Zwave! 🎉', 'success')
+    try {
+      await signup({ ...form, role })
       onNavigate('dashboard')
+    } catch (err) {
+      setError(err.message || 'Could not create account. Please try again.')
+    } finally {
       setLoading(false)
-    }, 900)
+    }
   }
 
   const roles = [
@@ -153,6 +167,11 @@ export function SignupPage({ onNavigate, defaultRole }) {
               <Input label="Full name" value={form.name} onChange={e=>setForm({...form,name:e.target.value})} placeholder="Your name" required />
               <Input label="Email address" type="email" value={form.email} onChange={e=>setForm({...form,email:e.target.value})} placeholder="your@email.com" required />
               <Input label="Password" type="password" value={form.password} onChange={e=>setForm({...form,password:e.target.value})} placeholder="Min. 8 characters" required />
+              {error && (
+                <div style={{ background:'rgba(194,48,16,0.08)', border:'0.5px solid rgba(194,48,16,0.25)', borderRadius:'8px', padding:'10px 14px', fontSize:'13px', color:'var(--ember)' }}>
+                  ⚠️ {error}
+                </div>
+              )}
               <p style={{ fontSize:'11px', color:'var(--warm)', lineHeight:1.5 }}>By creating an account you agree to our <span style={{ color:'var(--gold)' }}>Terms of Service</span> and <span style={{ color:'var(--gold)' }}>Privacy Policy</span>.</p>
               <Btn variant="ember" size="lg" style={{ width:'100%', borderRadius:'12px', marginTop:'0.5rem' }} disabled={loading}>
                 {loading ? 'Creating account…' : 'Create my account'}
