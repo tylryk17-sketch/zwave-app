@@ -12,6 +12,7 @@ import { CartPage, CheckoutPage } from './pages/CartCheckout'
 import { ProfilePage, PricingPage } from './pages/ProfilePricing'
 import PromotersPage from './pages/PromotersPage'
 import OrganizerPage from './pages/OrganizerPage'
+import { PrivacyPage, TermsPage } from './pages/LegalPages'
 
 const BARE_PAGES = ['login', 'signup']
 const AUTH_REQUIRED = ['dashboard', 'create-event', 'checkout', 'profile']
@@ -57,6 +58,8 @@ function AppInner() {
       case 'pricing':      return <PricingPage onNavigate={navigate} />
       case 'promoters':    return <PromotersPage onNavigate={navigate} />
       case 'organizer':    return <OrganizerPage organizerName={pageParams.param} onNavigate={navigate} />
+      case 'privacy':      return <PrivacyPage onNavigate={navigate} />
+      case 'terms':        return <TermsPage onNavigate={navigate} />
       default:             return <NotFound onNavigate={navigate} />
     }
   }
