@@ -161,7 +161,7 @@ export function SignupPage({ onNavigate, defaultRole }) {
                 <span onClick={() => onNavigate('terms')} style={{ color:'var(--gold)', cursor:'pointer' }}>Terms of Service</span> and{' '}
                 <span onClick={() => onNavigate('privacy')} style={{ color:'var(--gold)', cursor:'pointer' }}>Privacy Policy</span>.
               </p>
-              <Btn variant="ember" size="lg" style={{ width:'100%', borderRadius:'12px', marginTop:'0.5rem' }} disabled={loading}>
+              <button type="submit" disabled={loading} style={{ width:"100%", background:"var(--ember)", color:"#fff", border:"none", borderRadius:"100px", padding:"14px", fontSize:"14px", fontWeight:600, cursor:loading?"not-allowed":"pointer", fontFamily:"inherit", opacity:loading?0.7:1 }}>
                 {loading ? 'Creating account…' : 'Create my account'}
               </Btn>
             </form>
