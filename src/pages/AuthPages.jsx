@@ -87,7 +87,7 @@ export function SignupPage({ onNavigate, defaultRole }) {
       await signup({ ...form, role })
       onNavigate('dashboard')
     } catch (err) {
-      setError(err.message || 'Could not create account. Please try again.')
+      setError(err.message || "Could not create account: " + JSON.stringify(err))
     } finally {
       setLoading(false)
     }
