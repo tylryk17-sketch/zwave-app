@@ -7,69 +7,20 @@ export function LoginPage({ onNavigate }) {
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
-
   const handleSubmit = async (e) => {
     e.preventDefault()
     setError('')
     setLoading(true)
-    try {
-      await login(email, password)
-      onNavigate('home')
-    } catch (err) {
-      setError(err.message || 'Invalid email or password.')
-    } finally {
-      setLoading(false)
-    }
+    try { await login(email, password); onNavigate('home') }
+    catch (err) { setError(err.message || 'Invalid email or password.') }
+    finally { setLoading(false) }
   }
-
   return (
     <div style={{ minHeight:'100svh', display:'flex', alignItems:'center', justifyContent:'center', background:'var(--paper)', padding:'2rem' }}>
       <div style={{ width:'100%', maxWidth:'400px' }}>
         <button onClick={() => onNavigate('home')} style={{ fontFamily:"'Playfair Display',serif", fontSize:'22px', fontWeight:700, color:'var(--ink)', background:'none', border:'none', cursor:'pointer', marginBottom:'2rem', display:'block' }}>Zwave</button>
         <h1 style={{ fontFamily:"'Playfair Display',serif", fontSize:'32px', fontWeight:400, marginBottom:'0.5rem' }}>Log in</h1>
-        <p style={{ fontSize:'14px', color:'var(--warm)', marginBottom:'2rem' }}>
-          No account? <button onClick={() => onNavigate('signup')} style={{ background:'none', border:'none', color:'var(--gold)', cursor:'pointer', fontFamily:'inherit', fontSize:'14px', fontWeight:500 }}>Sign up</button>
-        </p>
-        <form onSubmit={handleSubmit}>
-          <div style={{ marginBottom:'1rem' }}>
-            <label style={{ fontSize:'12px', fontWeight:500, color:'var(--warm)', display:'block', marginBottom:'6px' }}>Email</label>
-            <input type="email" value={email} onChange={e=>setEmail(e.target.value)} placeholder="your@email.com" required style={{ width:'100%', background:'var(--paper2)', border:'0.5px solid var(--line2)', borderRadius:'10px', padding:'12px 14px', fontSize:'14px', color:'var(--ink)', fontFamily:'inherit', outline:'none', boxSizing:'border-box' }} />
-          </div>
-          <div style={{ marginBottom:'1rem' }}>
-            <label style={{ fon
-cat > src/pages/AuthPages.jsx << 'AUTHEOF'
-import React, { useState } from 'react'
-import { useApp } from '../context/AppContext'
-
-export function LoginPage({ onNavigate }) {
-  const { login } = useApp()
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState('')
-
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    setError('')
-    setLoading(true)
-    try {
-      await login(email, password)
-      onNavigate('home')
-    } catch (err) {
-      setError(err.message || 'Invalid email or password.')
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  return (
-    <div style={{ minHeight:'100svh', display:'flex', alignItems:'center', justifyContent:'center', background:'var(--paper)', padding:'2rem' }}>
-      <div style={{ width:'100%', maxWidth:'400px' }}>
-        <button onClick={() => onNavigate('home')} style={{ fontFamily:"'Playfair Display',serif", fontSize:'22px', fontWeight:700, color:'var(--ink)', background:'none', border:'none', cursor:'pointer', marginBottom:'2rem', display:'block' }}>Zwave</button>
-        <h1 style={{ fontFamily:"'Playfair Display',serif", fontSize:'32px', fontWeight:400, marginBottom:'0.5rem' }}>Log in</h1>
-        <p style={{ fontSize:'14px', color:'var(--warm)', marginBottom:'2rem' }}>
-          No account? <button onClick={() => onNavigate('signup')} style={{ background:'none', border:'none', color:'var(--gold)', cursor:'pointer', fontFamily:'inherit', fontSize:'14px', fontWeight:500 }}>Sign up</button>
-        </p>
+        <p style={{ fontSize:'14px', color:'var(--warm)', marginBottom:'2rem' }}>No account? <button onClick={() => onNavigate('signup')} style={{ background:'none', border:'none', color:'var(--gold)', cursor:'pointer', fontFamily:'inherit', fontSize:'14px', fontWeight:500 }}>Sign up</button></p>
         <form onSubmit={handleSubmit}>
           <div style={{ marginBottom:'1rem' }}>
             <label style={{ fontSize:'12px', fontWeight:500, color:'var(--warm)', display:'block', marginBottom:'6px' }}>Email</label>
@@ -98,28 +49,88 @@ export function SignupPage({ onNavigate, defaultRole }) {
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
-
   const roles = [
     { id:'organizer', icon:'🎤', title:'Event Organizer', desc:'Create events and sell tickets.' },
     { id:'promoter', icon:'🔗', title:'Promoter', desc:'Share events and earn commissions.' },
     { id:'attendee', icon:'🎟', title:'Fan / Attendee', desc:'Discover events and buy tickets.' },
   ]
-
   const handleSubmit = async (e) => {
     e.preventDefault()
     if (password.length < 8) { setError('Password must be at least 8 characters.'); return }
     setError('')
     setLoading(true)
-    try {
-      await signup({ name, email, password, role })
-      onNavigate('dashboard')
-    } catch (err) {
-      setError(err.message || 'Could not create account. Please try again.')
-    } finally {
-      setLoading(false)
-    }
+    try { await signup({ name, email, password, role }); onNavigate('dashboard') }
+    catch (err) { setError(err.message || 'Could not create account. Please try again.') }
+    finally { setLoading(false) }
   }
+  return (
+    <div style={{ minHeight:'100svh', display:'flex', alignItems:'center',
+cat > src/pages/AuthPages.jsx << 'AUTHEOF'
+import React, { useState } from 'react'
+import { useApp } from '../context/AppContext'
 
+export function LoginPage({ onNavigate }) {
+  const { login } = useApp()
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setError('')
+    setLoading(true)
+    try { await login(email, password); onNavigate('home') }
+    catch (err) { setError(err.message || 'Invalid email or password.') }
+    finally { setLoading(false) }
+  }
+  return (
+    <div style={{ minHeight:'100svh', display:'flex', alignItems:'center', justifyContent:'center', background:'var(--paper)', padding:'2rem' }}>
+      <div style={{ width:'100%', maxWidth:'400px' }}>
+        <button onClick={() => onNavigate('home')} style={{ fontFamily:"'Playfair Display',serif", fontSize:'22px', fontWeight:700, color:'var(--ink)', background:'none', border:'none', cursor:'pointer', marginBottom:'2rem', display:'block' }}>Zwave</button>
+        <h1 style={{ fontFamily:"'Playfair Display',serif", fontSize:'32px', fontWeight:400, marginBottom:'0.5rem' }}>Log in</h1>
+        <p style={{ fontSize:'14px', color:'var(--warm)', marginBottom:'2rem' }}>No account? <button onClick={() => onNavigate('signup')} style={{ background:'none', border:'none', color:'var(--gold)', cursor:'pointer', fontFamily:'inherit', fontSize:'14px', fontWeight:500 }}>Sign up</button></p>
+        <form onSubmit={handleSubmit}>
+          <div style={{ marginBottom:'1rem' }}>
+            <label style={{ fontSize:'12px', fontWeight:500, color:'var(--warm)', display:'block', marginBottom:'6px' }}>Email</label>
+            <input type="email" value={email} onChange={e=>setEmail(e.target.value)} placeholder="your@email.com" required style={{ width:'100%', background:'var(--paper2)', border:'0.5px solid var(--line2)', borderRadius:'10px', padding:'12px 14px', fontSize:'14px', color:'var(--ink)', fontFamily:'inherit', outline:'none', boxSizing:'border-box' }} />
+          </div>
+          <div style={{ marginBottom:'1rem' }}>
+            <label style={{ fontSize:'12px', fontWeight:500, color:'var(--warm)', display:'block', marginBottom:'6px' }}>Password</label>
+            <input type="password" value={password} onChange={e=>setPassword(e.target.value)} placeholder="8+ characters" required style={{ width:'100%', background:'var(--paper2)', border:'0.5px solid var(--line2)', borderRadius:'10px', padding:'12px 14px', fontSize:'14px', color:'var(--ink)', fontFamily:'inherit', outline:'none', boxSizing:'border-box' }} />
+          </div>
+          {error && <div style={{ background:'rgba(194,48,16,0.08)', border:'0.5px solid rgba(194,48,16,0.25)', borderRadius:'8px', padding:'10px 14px', fontSize:'13px', color:'var(--ember)', marginBottom:'1rem' }}>⚠️ {error}</div>}
+          <button type="submit" disabled={loading} style={{ width:'100%', background:'var(--ink)', color:'var(--paper)', border:'none', borderRadius:'100px', padding:'14px', fontSize:'14px', fontWeight:600, cursor:loading?'not-allowed':'pointer', fontFamily:'inherit', opacity:loading?0.7:1 }}>
+            {loading ? 'Signing in...' : 'Sign in'}
+          </button>
+        </form>
+      </div>
+    </div>
+  )
+}
+
+export function SignupPage({ onNavigate, defaultRole }) {
+  const { signup } = useApp()
+  const [step, setStep] = useState(1)
+  const [role, setRole] = useState(defaultRole || '')
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
+  const roles = [
+    { id:'organizer', icon:'🎤', title:'Event Organizer', desc:'Create events and sell tickets.' },
+    { id:'promoter', icon:'🔗', title:'Promoter', desc:'Share events and earn commissions.' },
+    { id:'attendee', icon:'🎟', title:'Fan / Attendee', desc:'Discover events and buy tickets.' },
+  ]
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    if (password.length < 8) { setError('Password must be at least 8 characters.'); return }
+    setError('')
+    setLoading(true)
+    try { await signup({ name, email, password, role }); onNavigate('dashboard') }
+    catch (err) { setError(err.message || 'Could not create account. Please try again.') }
+    finally { setLoading(false) }
+  }
   return (
     <div style={{ minHeight:'100svh', display:'flex', alignItems:'center', justifyContent:'center', background:'var(--paper)', padding:'2rem' }}>
       <div style={{ width:'100%', maxWidth:'460px' }}>
@@ -142,9 +153,8 @@ export function SignupPage({ onNavigate, defaultRole }) {
                 </div>
               ))}
             </div>
-            <button onClick={() => { if(role) setStep(2) }} style={{ width:'100%', background:'var(--ink)', color:'var(--paper)', border:'none', borderRadius:'100px', padding:'14px', fontSize:'14px', fontWeight:600, cursor:role?'pointer':'not-allowed', fontFamily:'inherit', opacity:role?1:0.5 }}>
-              Continue
-            </button>
+            <button onClick={() => { if(role) setStep(2) }} style={{ width:'100%', background:'var(--ink)', color:'var(--paper)', border:'none', borderRadius:'100px', padding:'14px', fontSize:'14px', fontWeight:600, cursor:role?'pointer':'not-allowed', fontFamily:'inherit', opacity:role?1:0.5 }}>Continue</button>
+            <p style={{ fontSize:'13px', color:'var(--warm)', textAlign:'center', marginTop:'1rem' }}>Already have an account? <button onClick={() => onNavigate('login')} style={{ background:'none', border:'none', color:'var(--gold)', cursor:'pointer', fontFamily:'inherit', fontSize:'13px', fontWeight:500 }}>Log in</button></p>
           </div>
         ) : (
           <div>
@@ -156,7 +166,7 @@ export function SignupPage({ onNavigate, defaultRole }) {
                 <input type="text" value={name} onChange={e=>setName(e.target.value)} placeholder="Your name" required style={{ width:'100%', background:'var(--paper2)', border:'0.5px solid var(--line2)', borderRadius:'10px', padding:'12px 14px', fontSize:'14px', color:'var(--ink)', fontFamily:'inherit', outline:'none', boxSizing:'border-box' }} />
               </div>
               <div style={{ marginBottom:'1rem' }}>
-                <label style={{ fontSize:'12px', fontWeight:500, color:'var(--warm)', display:'block', marginBottom:'6px' }}>Email address</label>
+                <label style={{ fontSize:'12px', fontWeight:500, color:'var(--warm)', display:'block', marginBottom:'6px' }}>Email</label>
                 <input type="email" value={email} onChange={e=>setEmail(e.target.value)} placeholder="your@email.com" required style={{ width:'100%', background:'var(--paper2)', border:'0.5px solid var(--line2)', borderRadius:'10px', padding:'12px 14px', fontSize:'14px', color:'var(--ink)', fontFamily:'inherit', outline:'none', boxSizing:'border-box' }} />
               </div>
               <div style={{ marginBottom:'1rem' }}>
