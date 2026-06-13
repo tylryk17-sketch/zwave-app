@@ -51,12 +51,7 @@ export function AppProvider({ children }) {
   const [referralLinks, setReferralLinks] = useState({})
   const [notifPanel, setNotifPanel] = useState(false)
   const [loading, setLoading] = useState(true)
-  const [notifList, setNotifList] = useState([
-    { id: 'n1', type: 'friend', message: 'Jordan M. is going to Neon Nights', time: '2m ago', read: false, icon: '👥' },
-    { id: 'n2', type: 'sale', message: 'Your referral link made a sale! +$12', time: '1h ago', read: false, icon: '💰' },
-    { id: 'n3', type: 'event', message: 'Wavelength Festival is 80% sold out', time: '3h ago', read: true, icon: '🔥' },
-    { id: 'n4', type: 'follow', message: 'BK Events Co. posted a new event', time: '5h ago', read: true, icon: '🎤' },
-  ])
+  const [notifList, setNotifList] = useState([])
 
   // ── AUTH LISTENER ──────────────────────────────────────
   useEffect(() => {

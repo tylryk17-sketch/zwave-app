@@ -34,7 +34,7 @@ function OrganizerDash({ onNavigate }) {
           </div>
           {/* Metrics */}
           <div style={{ display:'grid', gridTemplateColumns:'repeat(4,1fr)', gap:'1px', background:'rgba(253,250,245,0.06)', borderRadius:'14px', overflow:'hidden' }}>
-            {[['Total Revenue', user?.revenue || '$0','This month','var(--gold2)'],['Tickets Sold','0','Across 3 events','#5DD07A'],['Avg Capacity','0%','Per event','var(--ember2)'],['Active Promoters','0','Earning commissions','var(--paper)']].map(([label, val, sub, color]) => (
+            {[['Total Revenue', user?.revenue || '$0','This month','var(--gold2)'],['Tickets Sold','0','No sales yet','#5DD07A'],['Avg Capacity','0%','Per event','var(--ember2)'],['Active Promoters','0','Earning commissions','var(--paper)']].map(([label, val, sub, color]) => (
               <div key={label} style={{ background:'rgba(253,250,245,0.03)', padding:'1.25rem 1.5rem' }}>
                 <div style={{ fontSize:'10.5px', color:'rgba(253,250,245,0.25)', marginBottom:'5px', letterSpacing:'0.04em' }}>{label}</div>
                 <div style={{ fontFamily:"'Playfair Display',serif", fontSize:'30px', color, fontWeight:400, lineHeight:1 }}>{val}</div>
@@ -334,7 +334,7 @@ function PromoterDash({ onNavigate }) {
           <div style={{ display:'flex', flexDirection:'column', gap:'1rem' }}>
             <div style={{ background:'var(--paper)', border:'0.5px solid var(--line)', borderRadius:'14px', padding:'1.25rem' }}>
               <div style={{ fontSize:'13px', fontWeight:500, marginBottom:'1rem' }}>Monthly goal</div>
-              {[['Goal progress','0%','0%'],['Conversion rate','18.4%','18.4%']].map(([label, pct, w]) => (
+              {[['Goal progress','0%','0%'],['Conversion rate','0%','0%']].map(([label, pct, w]) => (
                 <div key={label} style={{ marginBottom:'0.75rem' }}>
                   <div style={{ display:'flex', justifyContent:'space-between', fontSize:'12px', color:'var(--warm)', marginBottom:'4px' }}><span>{label}</span><span style={{ fontWeight:500, color:'var(--ink)' }}>{pct}</span></div>
                   <div style={{ height:'4px', background:'var(--paper3)', borderRadius:'2px', overflow:'hidden' }}>
@@ -393,8 +393,8 @@ function LeadCapture() {
     
     
     { name:'Tanya Morris', contact:'+1 (212) 555-0341', type:'phone', source:'Notify Me', event:'Rooftop Sessions — Season Finale', date:'Jun 4', tags:['Future events','Event updates'] },
-    { name:'Chris Parker', contact:'cparker@gmail.com', type:'email', source:'Notify Me', event:'Wavelength Music Festival', date:'Jun 3', tags:['Early bird deals'] },
-    { name:'Simone Diaz', contact:'+1 (786) 555-0293', type:'phone', source:'RSVP', event:'Wavelength Music Festival', date:'Jun 2', tags:['Ticket drops','Future events'] },
+    
+    
   ]
 
   const filtered = LEADS.filter(l =>
@@ -448,9 +448,9 @@ function LeadCapture() {
         </div>
         <select value={activeEvent} onChange={e => setActiveEvent(e.target.value)} style={{ background:'var(--paper)', border:'0.5px solid var(--line)', borderRadius:'10px', padding:'9px 14px', fontSize:'13px', color:'var(--warm)', fontFamily:'inherit', cursor:'pointer', outline:'none' }}>
           <option>All Events</option>
-          <option>Neon Nights — Summer Concert Series</option>
+          
           <option>Rooftop Sessions — Season Finale</option>
-          <option>Wavelength Music Festival</option>
+          
         </select>
       </div>
 
