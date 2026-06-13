@@ -34,7 +34,7 @@ function OrganizerDash({ onNavigate }) {
           </div>
           {/* Metrics */}
           <div style={{ display:'grid', gridTemplateColumns:'repeat(4,1fr)', gap:'1px', background:'rgba(253,250,245,0.06)', borderRadius:'14px', overflow:'hidden' }}>
-            {[['Total Revenue','$0','This month','var(--gold2)'],['Tickets Sold','0','Across 3 events','#5DD07A'],['Avg Capacity','0%','Per event','var(--ember2)'],['Active Promoters','0','Earning commissions','var(--paper)']].map(([label, val, sub, color]) => (
+            {[['Total Revenue', user?.revenue || '$0','This month','var(--gold2)'],['Tickets Sold','0','Across 3 events','#5DD07A'],['Avg Capacity','0%','Per event','var(--ember2)'],['Active Promoters','0','Earning commissions','var(--paper)']].map(([label, val, sub, color]) => (
               <div key={label} style={{ background:'rgba(253,250,245,0.03)', padding:'1.25rem 1.5rem' }}>
                 <div style={{ fontSize:'10.5px', color:'rgba(253,250,245,0.25)', marginBottom:'5px', letterSpacing:'0.04em' }}>{label}</div>
                 <div style={{ fontFamily:"'Playfair Display',serif", fontSize:'30px', color, fontWeight:400, lineHeight:1 }}>{val}</div>
@@ -202,7 +202,7 @@ function OrgAnalytics() {
           </div>
         </div>
         <div style={{ display:'flex', flexDirection:'column', gap:'1rem' }}>
-          {[['Top event','Neon Nights','312 tickets'],['Best city','Los Angeles','41% of sales'],['Peak day','Saturday','28% of sales'],['Avg ticket','$72','This month']].map(([label, val, sub]) => (
+          {[['Top event', events[0]?.title || 'No events yet', events[0] ? events[0].sold + ' tickets' : '—'],['Best city', '—', 'No data yet'],['Peak day', '—', 'No data yet'],['Avg ticket', '$0', 'No sales yet']].map(([label, val, sub]) => (
             <div key={label} style={{ background:'var(--paper)', border:'0.5px solid var(--line)', borderRadius:'12px', padding:'1rem 1.25rem' }}>
               <div style={{ fontSize:'11px', color:'var(--warm)', marginBottom:'4px', textTransform:'uppercase', letterSpacing:'0.06em', fontWeight:500 }}>{label}</div>
               <div style={{ fontSize:'16px', fontWeight:500, color:'var(--ink)', marginBottom:'2px' }}>{val}</div>
@@ -301,7 +301,7 @@ function PromoterDash({ onNavigate }) {
             Hey <em style={{ color:'var(--gold2)' }}>{user.name}</em> — let's get selling.
           </h1>
           <div style={{ display:'grid', gridTemplateColumns:'repeat(4,1fr)', gap:'1px', background:'rgba(253,250,245,0.06)', borderRadius:'14px', overflow:'hidden' }}>
-            {[['Tickets sold today','47','var(--paper)'],['Revenue driven','$2,350','var(--gold2)'],['Your commission','$235','#5DD07A'],['Link clicks','1,204','var(--ember2)']].map(([label, val, color]) => (
+            {[['Tickets sold today',user?.ticketsSold || '0','var(--paper)'],['Revenue driven',user?.revenueDriven || '$0','var(--gold2)'],['Your commission',user?.commission || '$0','#5DD07A'],['Link clicks',user?.linkClicks || '0','var(--ember2)']].map(([label, val, color]) => (
               <div key={label} style={{ background:'rgba(253,250,245,0.03)', padding:'1.25rem 1.5rem' }}>
                 <div style={{ fontSize:'10.5px', color:'rgba(253,250,245,0.25)', marginBottom:'5px', letterSpacing:'0.04em' }}>{label}</div>
                 <div style={{ fontFamily:"'Playfair Display',serif", fontSize:'30px', color, fontWeight:400, lineHeight:1 }}>{val}</div>
@@ -345,7 +345,7 @@ function PromoterDash({ onNavigate }) {
             </div>
             <div style={{ background:'var(--ink)', border:'0.5px solid rgba(253,250,245,0.08)', borderRadius:'14px', padding:'1.25rem' }}>
               <div style={{ fontSize:'11px', color:'rgba(253,250,245,0.3)', textTransform:'uppercase', letterSpacing:'0.07em', marginBottom:'0.75rem' }}>Leaderboard rank</div>
-              {[['1','AJ','$840'],['2','You','$235'],['3','TR','$180']].map(([rank, name, val]) => (
+              {[['1','AJ','$840'],['2','You',user?.commission || '$0'],['3','TR','$180']].map(([rank, name, val]) => (
                 <div key={rank} style={{ display:'flex', alignItems:'center', justifyContent:'space-between', padding:'0.5rem 0', borderBottom:'0.5px solid rgba(253,250,245,0.05)' }}>
                   <div style={{ display:'flex', alignItems:'center', gap:'0.6rem' }}>
                     <span style={{ fontFamily:"'Playfair Display',serif", fontStyle:'italic', fontSize:'13px', color:'rgba(253,250,245,0.2)', width:'14px' }}>{rank}</span>
@@ -387,11 +387,11 @@ function LeadCapture() {
   const [search, setSearch] = useState('')
 
   const LEADS = [
-    { name:'Marcus Johnson', contact:'marcus@gmail.com', type:'email', source:'Notify Me', event:'Neon Nights — Summer Concert Series', date:'Jun 8', tags:['Ticket drops','Future events'] },
-    { name:'Alicia Torres', contact:'+1 (305) 555-0192', type:'phone', source:'RSVP', event:'Neon Nights — Summer Concert Series', date:'Jun 7', tags:['Event updates'] },
-    { name:'Devon Williams', contact:'devon.w@outlook.com', type:'email', source:'Notify Me', event:'Neon Nights — Summer Concert Series', date:'Jun 7', tags:['Early bird deals','Ticket drops'] },
-    { name:'Keisha Brown', contact:'+1 (404) 555-0847', type:'phone', source:'Notify Me', event:'Neon Nights — Summer Concert Series', date:'Jun 6', tags:['Future events'] },
-    { name:'Jordan Lee', contact:'jlee@icloud.com', type:'email', source:'RSVP', event:'Rooftop Sessions — Season Finale', date:'Jun 5', tags:['Ticket drops','Price changes'] },
+    
+    
+    
+    
+    
     { name:'Tanya Morris', contact:'+1 (212) 555-0341', type:'phone', source:'Notify Me', event:'Rooftop Sessions — Season Finale', date:'Jun 4', tags:['Future events','Event updates'] },
     { name:'Chris Parker', contact:'cparker@gmail.com', type:'email', source:'Notify Me', event:'Wavelength Music Festival', date:'Jun 3', tags:['Early bird deals'] },
     { name:'Simone Diaz', contact:'+1 (786) 555-0293', type:'phone', source:'RSVP', event:'Wavelength Music Festival', date:'Jun 2', tags:['Ticket drops','Future events'] },
