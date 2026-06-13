@@ -157,7 +157,7 @@ export function PricingPage({ onNavigate }) {
               </ul>
               <button onClick={() => {
                 if (plan.id === 'pro') {
-                  window.open('https://buy.stripe.com/test_placeholder', '_blank')
+                  window.open('https://buy.stripe.com/aFacMY4Ge9T3dP1fMN1B600', '_blank')
                 } else {
                   onNavigate(user ? 'dashboard' : 'signup')
                 }
