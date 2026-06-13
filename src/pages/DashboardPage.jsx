@@ -27,14 +27,14 @@ function OrganizerDash({ onNavigate }) {
             <div>
               <div style={{ fontSize:'11px', color:'rgba(253,250,245,0.3)', letterSpacing:'0.08em', textTransform:'uppercase', marginBottom:'4px' }}>Organizer Dashboard</div>
               <h1 style={{ fontFamily:"'Playfair Display',serif", fontSize:'28px', fontWeight:400, color:'var(--paper)' }}>
-                Welcome back, <em style={{ color:'var(--gold2)' }}>{user.name}</em>
+                {user.name ? 'Welcome, ' : 'Welcome'}<em style={{ color:'var(--gold2)' }}>{user.name}</em>
               </h1>
             </div>
             <Btn variant="ember" onClick={() => onNavigate('create-event')}>+ Create New Event</Btn>
           </div>
           {/* Metrics */}
           <div style={{ display:'grid', gridTemplateColumns:'repeat(4,1fr)', gap:'1px', background:'rgba(253,250,245,0.06)', borderRadius:'14px', overflow:'hidden' }}>
-            {[['Total Revenue','$8,395','This month','var(--gold2)'],['Tickets Sold','312','Across 3 events','#5DD07A'],['Avg Capacity','78%','Per event','var(--ember2)'],['Active Promoters','12','Earning commissions','var(--paper)']].map(([label, val, sub, color]) => (
+            {[['Total Revenue','$0','This month','var(--gold2)'],['Tickets Sold','0','Across 3 events','#5DD07A'],['Avg Capacity','0%','Per event','var(--ember2)'],['Active Promoters','0','Earning commissions','var(--paper)']].map(([label, val, sub, color]) => (
               <div key={label} style={{ background:'rgba(253,250,245,0.03)', padding:'1.25rem 1.5rem' }}>
                 <div style={{ fontSize:'10.5px', color:'rgba(253,250,245,0.25)', marginBottom:'5px', letterSpacing:'0.04em' }}>{label}</div>
                 <div style={{ fontFamily:"'Playfair Display',serif", fontSize:'30px', color, fontWeight:400, lineHeight:1 }}>{val}</div>
@@ -334,7 +334,7 @@ function PromoterDash({ onNavigate }) {
           <div style={{ display:'flex', flexDirection:'column', gap:'1rem' }}>
             <div style={{ background:'var(--paper)', border:'0.5px solid var(--line)', borderRadius:'14px', padding:'1.25rem' }}>
               <div style={{ fontSize:'13px', fontWeight:500, marginBottom:'1rem' }}>Monthly goal</div>
-              {[['Goal progress','78%','78%'],['Conversion rate','18.4%','18.4%']].map(([label, pct, w]) => (
+              {[['Goal progress','0%','0%'],['Conversion rate','18.4%','18.4%']].map(([label, pct, w]) => (
                 <div key={label} style={{ marginBottom:'0.75rem' }}>
                   <div style={{ display:'flex', justifyContent:'space-between', fontSize:'12px', color:'var(--warm)', marginBottom:'4px' }}><span>{label}</span><span style={{ fontWeight:500, color:'var(--ink)' }}>{pct}</span></div>
                   <div style={{ height:'4px', background:'var(--paper3)', borderRadius:'2px', overflow:'hidden' }}>
