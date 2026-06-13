@@ -43,7 +43,7 @@ export default function CreateEventPage({ onNavigate }) {
 
   const canNext = () => {
     if (step === 0) return form.title && form.category && form.description
-    if (step === 1) return form.date && form.time && form.venue && form.city
+    if (step === 1) return form.date && form.venue && form.city
     if (step === 2) return form.tiers.every(t => t.name && t.price && t.available)
     return true
   }
