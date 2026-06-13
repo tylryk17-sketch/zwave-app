@@ -253,6 +253,10 @@ export function AppProvider({ children }) {
   // ── REFERRAL LINKS ─────────────────────────────────────
   const generateReferralLink = async (eventId) => {
     if (!user) return null
+    if (user.role !== 'organizer' && user.plan !== 'pro') {
+      notify('Upgrade to Pro to earn commissions as a promoter.', 'error')
+      return null
+    }
     const code = `${user.id}_${eventId}_${Math.random().toString(36).slice(2, 7)}`
     const link = `zwave-app.vercel.app/e/${eventId}?ref=${code}`
     setReferralLinks(prev => ({ ...prev, [eventId]: link }))

@@ -155,7 +155,13 @@ export function PricingPage({ onNavigate }) {
                   </li>
                 ))}
               </ul>
-              <button onClick={() => onNavigate(user ? 'dashboard' : 'signup')} style={{ display:'block', width:'100%', textAlign:'center', padding:'13px', borderRadius:'100px', fontSize:'13px', fontWeight:500, cursor:'pointer', fontFamily:'inherit', transition:'all 0.2s',
+              <button onClick={() => {
+                if (plan.id === 'pro') {
+                  window.open('https://buy.stripe.com/test_placeholder', '_blank')
+                } else {
+                  onNavigate(user ? 'dashboard' : 'signup')
+                }
+              }} style={{ display:'block', width:'100%', textAlign:'center', padding:'13px', borderRadius:'100px', fontSize:'13px', fontWeight:500, cursor:'pointer', fontFamily:'inherit', transition:'all 0.2s',
                 background: plan.featured ? 'var(--gold2)' : 'transparent',
                 color: plan.featured ? 'var(--ink)' : 'var(--ink)',
                 border: plan.featured ? 'none' : '0.5px solid var(--line2)'
