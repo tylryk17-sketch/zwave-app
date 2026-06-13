@@ -44,7 +44,7 @@ export default function CreateEventPage({ onNavigate }) {
   const canNext = () => {
     if (step === 0) return form.title && form.category && form.description
     if (step === 1) return form.date && form.venue && form.city
-    if (step === 2) return form.tiers.every(t => t.name && t.price && t.available)
+    if (step === 2) return form.isRsvp || form.tiers.every(t => t.name && t.price && t.available)
     return true
   }
 
@@ -177,6 +177,18 @@ export default function CreateEventPage({ onNavigate }) {
           {/* STEP 2 — Tickets */}
           {step === 2 && (
             <div style={{ display:'flex', flexDirection:'column', gap:'1.25rem' }}>
+              {/* RSVP Toggle */}
+              <div style={{ background:'var(--paper2)', border:'0.5px solid var(--line)', borderRadius:'14px', padding:'1.25rem', display:'flex', justifyContent:'space-between', alignItems:'center' }}>
+                <div>
+                  <div style={{ fontSize:'14px', fontWeight:500, color:'var(--ink)', marginBottom:'3px' }}>Free RSVP event</div>
+                  <div style={{ fontSize:'12px', color:'var(--warm)', fontWeight:300 }}>No tickets — just collect RSVPs to gauge interest and headcount</div>
+                </div>
+                <div onClick={() => setForm({...form, isRsvp: !form.isRsvp})} style={{ width:'44px', height:'24px', borderRadius:'100px', background: form.isRsvp ? 'var(--gold)' : 'var(--paper3)', position:'relative', cursor:'pointer', transition:'background 0.2s', flexShrink:0 }}>
+                  <div style={{ position:'absolute', top:'3px', left: form.isRsvp ? '23px' : '3px', width:'18px', height:'18px', borderRadius:'50%', background:'#fff', transition:'left 0.2s', boxShadow:'0 1px 3px rgba(0,0,0,0.2)' }}/>
+                </div>
+              </div>
+              {/* Only show tiers if not RSVP */}
+              {!form.isRsvp && <div style={{ display:'flex', flexDirection:'column', gap:'1rem' }}>
               <div>
                 <div style={{ fontSize:'10.5px', fontWeight:600, letterSpacing:'0.14em', textTransform:'uppercase', color:'var(--gold)', marginBottom:'4px' }}>Step 3</div>
                 <h2 style={{ fontFamily:"'Playfair Display',serif", fontSize:'22px', fontWeight:400, marginBottom:'0.5rem' }}>Ticket tiers</h2>
@@ -199,6 +211,7 @@ export default function CreateEventPage({ onNavigate }) {
                 onMouseEnter={e => e.currentTarget.style.borderColor='var(--gold)'}
                 onMouseLeave={e => e.currentTarget.style.borderColor='var(--line2)'}
               >+ Add another tier</button>
+            </div>}
             </div>
           )}
 
