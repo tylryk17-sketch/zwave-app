@@ -258,7 +258,7 @@ export function AppProvider({ children }) {
       return null
     }
     const code = `${user.id}_${eventId}_${Math.random().toString(36).slice(2, 7)}`
-    const link = `zwave-app.vercel.app/e/${eventId}?ref=${code}`
+    const link = `https://zwave-app.vercel.app/e/${eventId}?ref=${code}`
     setReferralLinks(prev => ({ ...prev, [eventId]: link }))
 
     if (!user.id.startsWith('demo_')) {

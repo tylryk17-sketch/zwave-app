@@ -96,7 +96,7 @@ export function PricingPage({ onNavigate }) {
       cta:'Get started free'
     },
     {
-      name:'Pro Organizer', price:'$49', per:'per month + 2% per ticket',
+      id:'pro', name:'Pro Organizer', price:'$49', per:'per month + 2% per ticket',
       annualPrice:'$39', annualPer:'per month (billed $468/yr)',
       tag:'Most popular', featured:true,
       features:['Everything in Starter','Unlimited ticket tiers','Unlimited AI marketing','Custom promoter tiers & rates','Live promoter leaderboard','Advanced analytics & exports','Featured event placement','Priority support (24h response)','Early access to new features'],
@@ -156,7 +156,7 @@ export function PricingPage({ onNavigate }) {
                 ))}
               </ul>
               <button onClick={() => {
-                if (plan.id === 'pro') {
+                if (plan.name === 'Pro') {
                   window.open('https://buy.stripe.com/aFacMY4Ge9T3dP1fMN1B600', '_blank')
                 } else {
                   onNavigate(user ? 'dashboard' : 'signup')

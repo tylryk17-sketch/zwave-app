@@ -27,7 +27,7 @@ function OrganizerDash({ onNavigate }) {
             <div>
               <div style={{ fontSize:'11px', color:'rgba(253,250,245,0.3)', letterSpacing:'0.08em', textTransform:'uppercase', marginBottom:'4px' }}>Organizer Dashboard</div>
               <h1 style={{ fontFamily:"'Playfair Display',serif", fontSize:'28px', fontWeight:400, color:'var(--paper)' }}>
-                {user.name ? 'Welcome, ' : 'Welcome'}<em style={{ color:'var(--gold2)' }}>{user.name}</em>
+                {user.name ? <>Welcome, <em style={{ color:'var(--gold2)' }}>{user.name}</em></> : 'Welcome'}
               </h1>
             </div>
             <Btn variant="ember" onClick={() => onNavigate('create-event')}>+ Create New Event</Btn>
@@ -181,7 +181,9 @@ function OrgPromoters() {
   )
 }
 
-function OrgAnalytics() {
+function OrgAnalytics({ onNavigate }) {
+  const { events } = useApp()
+  const { events } = useApp()
   const bars = [20, 35, 28, 55, 42, 80, 100, 65, 72, 58, 90, 45]
   const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
   return (
@@ -448,9 +450,7 @@ function LeadCapture() {
         </div>
         <select value={activeEvent} onChange={e => setActiveEvent(e.target.value)} style={{ background:'var(--paper)', border:'0.5px solid var(--line)', borderRadius:'10px', padding:'9px 14px', fontSize:'13px', color:'var(--warm)', fontFamily:'inherit', cursor:'pointer', outline:'none' }}>
           <option>All Events</option>
-          
           <option>Rooftop Sessions — Season Finale</option>
-          
         </select>
       </div>
 

@@ -43,7 +43,7 @@ export default function CreateEventPage({ onNavigate }) {
 
   const canNext = () => {
     if (step === 0) return form.title && form.category && form.description
-    if (step === 1) return form.date && form.venue && form.city
+    if (step === 1) return form.date && form.time && form.venue && form.city
     if (step === 2) return form.isRsvp || form.tiers.every(t => t.name && t.price && t.available)
     return true
   }
@@ -158,7 +158,7 @@ export default function CreateEventPage({ onNavigate }) {
               </div>
               <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:'1rem' }}>
                 <Input label="Event date *" type="date" value={form.date} onChange={update('date')} />
-                <Input label="Start time *" type="time" value={form.time} onChange={update('time')} />
+                <Input label="Start time *" type="time" required value={form.time} onChange={update('time')} />
               </div>
               <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:'1rem' }}>
                 <Input label="End time" type="time" value={form.endTime} onChange={update('endTime')} />
