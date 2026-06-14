@@ -48,7 +48,7 @@ export default function HomePage({ onNavigate }) {
               From underground shows to sold-out stadiums — <strong style={{ color:'rgba(253,250,245,0.65)', fontWeight:400 }}>Zwave®</strong> is the smarter way to create, promote, discover, and sell out any event, anywhere.
             </p>
             <div style={{ display:'flex', gap:'0.75rem', flexWrap:'wrap', marginBottom:'3rem' }}>
-              <Btn variant="ember" size="lg" onClick={() => onNavigate('signup')}>Get started free</Btn>
+              <Btn variant="ember" size="lg" onClick={() => onNavigate(user ? 'dashboard' : 'signup')}>{user ? 'Go to dashboard' : 'Get started free'}</Btn>
               <Btn variant="outline" size="lg" onClick={() => onNavigate('discover')} style={{ borderColor:'rgba(253,250,245,0.15)', color:'rgba(253,250,245,0.6)' }}>Browse events</Btn>
             </div>
             {/* Social proof */}
