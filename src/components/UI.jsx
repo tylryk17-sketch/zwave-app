@@ -105,7 +105,7 @@ export function Nav({ onNavigate, currentPage }) {
           ) : (
             <>
               <button onClick={() => navigate('login')} style={{ background: 'none', border: 'none', fontSize: '13px', color: 'var(--warm)', cursor: 'pointer', padding: '7px 10px', fontFamily: 'inherit' }}>Log in</button>
-              <button onClick={() => navigate('signup')} style={{ background: 'var(--ink)', color: 'var(--paper)', fontSize: '13px', fontWeight: 500, padding: '8px 18px', borderRadius: '100px', border: 'none', cursor: 'pointer', fontFamily: 'inherit' }}>Get started</button>
+              <button onClick={() => navigate(user ? 'dashboard' : 'signup')} style={{ background: 'var(--ink)', color: 'var(--paper)', fontSize: '13px', fontWeight: 500, padding: '8px 18px', borderRadius: '100px', border: 'none', cursor: 'pointer', fontFamily: 'inherit' }}>{user ? 'Dashboard' : 'Get started'}</button>
             </>
           )}
         </div>
