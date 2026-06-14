@@ -13,7 +13,7 @@ const CITIES = [
 ]
 
 export default function HomePage({ onNavigate }) {
-  const { events } = useApp()
+  const { events, user } = useApp()
   const [activeCategory, setActiveCategory] = useState('All')
   const [email, setEmail] = useState('')
   const [waitlistDone, setWaitlistDone] = useState(false)

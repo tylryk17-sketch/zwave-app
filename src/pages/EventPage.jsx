@@ -63,7 +63,7 @@ export default function EventPage({ eventId, onNavigate }) {
   const handleNotifyMe = (e) => { e.preventDefault(); if(!notifyForm.contact.trim()||!notifyForm.name.trim()) return; setNotifyDone(true); notify(`You're on the list! 🎉`, 'success') }
   const handleRSVP = () => { setRsvpDone(true); notify(`RSVP confirmed! 🎉`, 'success') }
   const handleWaitlist = (e) => { e.preventDefault(); if(!waitlistEmail) return; setWaitlistDone(true); notify(`You're on the waitlist! We'll notify you if spots open up.`, 'success') }
-  const handleCopyLink = () => { navigator.clipboard?.writeText(eventUrl).catch(()=>{}); setCopiedLink(true); setTimeout(()=>setCopiedLink(false),2000) }
+  const handleCopyLink = () => { navigator.clipboard?.writeText(myReferral).catch(()=>{}); setCopiedLink(true); setTimeout(()=>setCopiedLink(false),2000) }
   const handleCopyShareLink = () => { navigator.clipboard?.writeText(eventUrl).catch(()=>{}); setCopied(true); setTimeout(()=>setCopied(false),2000) }
   const handleGiftAdd = () => {
     if(!giftForm.recipientName||!giftForm.recipientEmail) return
@@ -398,7 +398,7 @@ export default function EventPage({ eventId, onNavigate }) {
                     <div>
                       <div style={{ fontSize:'12px', color:'rgba(253,250,245,0.4)', marginBottom:'6px', fontWeight:500 }}>Your referral link</div>
                       <div style={{ display:'flex', gap:'0.5rem' }}>
-                        <div style={{ flex:1, background:'rgba(253,250,245,0.07)', border:'0.5px solid rgba(253,250,245,0.12)', borderRadius:'8px', padding:'10px 14px', fontSize:'13px', color:'rgba(253,250,245,0.6)', fontFamily:'monospace', overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap' }}>https://{myReferral}</div>
+                        <div style={{ flex:1, background:'rgba(253,250,245,0.07)', border:'0.5px solid rgba(253,250,245,0.12)', borderRadius:'8px', padding:'10px 14px', fontSize:'13px', color:'rgba(253,250,245,0.6)', fontFamily:'monospace', overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap' }}>{myReferral}</div>
                         <button onClick={handleCopyLink} style={{ background:copiedLink?'var(--green)':'var(--gold2)', border:'none', borderRadius:'8px', padding:'10px 16px', fontSize:'13px', fontWeight:600, color:copiedLink?'#fff':'var(--ink)', cursor:'pointer', fontFamily:'inherit', flexShrink:0 }}>{copiedLink?'✓ Copied!':'📋 Copy'}</button>
                       </div>
                     </div>

@@ -85,7 +85,6 @@ export function AppProvider({ children }) {
     try {
       const realEvents = await db.getEvents()
       if (realEvents && realEvents.length > 0) {
-        // Merge real events with mock structure
         const formatted = realEvents.map(e => ({
           ...e,
           tiers: e.tiers || [{ name: 'General Admission', price: e.price || 0, available: e.capacity || 100 }],
@@ -94,10 +93,12 @@ export function AppProvider({ children }) {
           tags: e.tags || [],
           vibe: e.vibe || 8.5,
         }))
-        setEvents([...formatted, ...MOCK_EVENTS])
+        setEvents(formatted)
+      } else {
+        setEvents(MOCK_EVENTS)
       }
     } catch (err) {
-      console.log('Using mock events')
+      setEvents(MOCK_EVENTS)
     }
   }
 
@@ -257,6 +258,7 @@ export function AppProvider({ children }) {
       notify('Upgrade to Pro to earn commissions as a promoter.', 'error')
       return null
     }
+    if (referralLinks[eventId]) return referralLinks[eventId]
     const code = `${user.id}_${eventId}_${Math.random().toString(36).slice(2, 7)}`
     const link = `https://zwave-app.vercel.app/e/${eventId}?ref=${code}`
     setReferralLinks(prev => ({ ...prev, [eventId]: link }))

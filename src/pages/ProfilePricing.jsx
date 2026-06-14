@@ -21,13 +21,13 @@ export function ProfilePage({ onNavigate }) {
         <div style={{ display:'flex', alignItems:'flex-end', justifyContent:'space-between', marginTop:'-40px', marginBottom:'1.5rem', flexWrap:'wrap', gap:'1rem' }}>
           <div style={{ display:'flex', alignItems:'flex-end', gap:'1.25rem' }}>
             <div style={{ width:'80px', height:'80px', borderRadius:'50%', background:'linear-gradient(135deg,var(--ember),var(--gold2))', border:'3px solid var(--paper)', display:'flex', alignItems:'center', justifyContent:'center', fontSize:'30px', fontWeight:700, color:'#fff', flexShrink:0 }}>
-              {user.name.charAt(0).toUpperCase()}
+              {(user.name || user.email || '?').charAt(0).toUpperCase()}
             </div>
             <div style={{ paddingBottom:'0.25rem' }}>
               <h1 style={{ fontFamily:"'Playfair Display',serif", fontSize:'24px', fontWeight:400, marginBottom:'2px' }}>{user.name}</h1>
               <div style={{ fontSize:'13px', color:'var(--warm)' }}>
                 {user.role === 'organizer' ? '🎤 Event Organizer' : user.role === 'promoter' ? '🔗 Promoter' : '🎟 Fan / Attendee'}
-                &nbsp;·&nbsp; Member since {new Date(user.joinedAt).toLocaleDateString('en-US', { month:'long', year:'numeric' })}
+                {user.joinedAt ? <>&nbsp;·&nbsp; Member since {new Date(user.joinedAt).toLocaleDateString('en-US', { month:'long', year:'numeric' })}</> : ''}
               </div>
             </div>
           </div>
