@@ -123,7 +123,7 @@ export default function HomePage({ onNavigate }) {
           {/* Cities */}
           <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fill,minmax(150px,1fr))', gap:'0.7rem', marginBottom:'2.5rem' }}>
             {CITIES.map(city => (
-              <div key={city.name} onClick={() => onNavigate('discover')} style={{ position:'relative', aspectRatio:'4/3', borderRadius:'13px', overflow:'hidden', background:`linear-gradient(160deg,${city.c1},${city.c2})`, cursor:'pointer', transition:'transform 0.2s' }}
+              <div key={city.name} onClick={() => onNavigate('discover')} style={{ position:'relative', aspectRatio:'4/3', borderRadius:'13px', overflow:'hidden', background:`linear-gradient(160deg,${city.c1},${city.c2})`, backgroundImage:city.img?`url(${city.img})`:'none', backgroundSize:'cover', backgroundPosition:'center', cursor:'pointer', transition:'transform 0.2s' }}
                 onMouseEnter={e => e.currentTarget.style.transform='scale(1.03)'}
                 onMouseLeave={e => e.currentTarget.style.transform=''}
               >
