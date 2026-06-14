@@ -181,8 +181,7 @@ function OrgPromoters() {
   )
 }
 
-function OrgAnalytics({ onNavigate }) {
-  const { events } = useApp()
+function OrgAnalytics() {
   const { events } = useApp()
   const bars = [20, 35, 28, 55, 42, 80, 100, 65, 72, 58, 90, 45]
   const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']

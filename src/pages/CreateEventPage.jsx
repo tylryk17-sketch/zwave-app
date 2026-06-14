@@ -44,7 +44,7 @@ export default function CreateEventPage({ onNavigate }) {
   const canNext = () => {
     if (step === 0) return form.title && form.category && form.description
     if (step === 1) return form.date && form.time && form.venue && form.city
-    if (step === 2) return form.isRsvp || form.tiers.every(t => t.name && t.price && t.available)
+    if (step === 2) return form.isRsvp || form.tiers.every(t => t.name && t.price !== '' && t.available)
     return true
   }
 
@@ -264,7 +264,7 @@ export default function CreateEventPage({ onNavigate }) {
               {[
                 ['Event', [['Title', form.title || '—'],['Category', form.category || '—'],['Description', form.description ? form.description.slice(0,80)+'…' : '—']]],
                 ['Date & Venue', [['Date', form.date || '—'],['Time', form.time || '—'],['Venue', form.venue || '—'],['City', form.city || '—']]],
-                ['Tickets', form.tiers.map(t => [t.name || 'Unnamed', t.price ? `$${t.price} · ${t.available} available` : '—'])],
+                ['Tickets', form.isRsvp ? [['Type', 'Free RSVP']] : form.tiers.map(t => [t.name || 'Unnamed', t.price !== '' ? `$${t.price} · ${t.available} available` : '—'])],
                 ['Promoters', [['Status', form.enablePromoters ? `Enabled at ${form.commissionRate}%` : 'Disabled']]],
               ].map(([section, rows]) => (
                 <div key={section} style={{ background:'var(--paper2)', border:'0.5px solid var(--line)', borderRadius:'12px', padding:'1.25rem' }}>
