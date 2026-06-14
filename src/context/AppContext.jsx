@@ -87,10 +87,10 @@ export function AppProvider({ children }) {
         }))
         setEvents(formatted)
       } else {
-        setEvents(MOCK_EVENTS)
+        setEvents([])
       }
     } catch (err) {
-      setEvents(MOCK_EVENTS)
+      setEvents([])
     }
   }
 
