@@ -4,12 +4,12 @@ import { EventCard, Btn } from '../components/UI'
 
 const CATEGORIES = ['All','Concerts','Festivals','Nightlife','Day Parties','Arts & Culture','Sports','Business','Food & Drink']
 const CITIES = [
-  { name:'New York', count:'520', c1:'#0A1A2C', c2:'#050A10', img:'https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=400&q=80' },
-  { name:'Miami', count:'340', c1:'#2C1208', c2:'#0A0300', img:'https://images.unsplash.com/photo-1514214246283-d427a95c5d2f?w=400&q=80' },
-  { name:'Los Angeles', count:'410', c1:'#2C1A00', c2:'#0F0700', img:'https://images.unsplash.com/photo-1534190760961-74e8c1c5c3da?w=400&q=80' },
-  { name:'Atlanta', count:'210', img:'https://images.unsplash.com/photo-1575917649705-5b59aaa12e6b?w=400&q=80', c1:'#1A2C0A', c2:'#080F03' },
-  { name:'Chicago', count:'185', img:'https://images.unsplash.com/photo-1494522855154-9297ac14b55f?w=400&q=80', c1:'#0A1A2C', c2:'#030810' },
-  { name:'Houston', count:'150', img:'https://images.unsplash.com/photo-1577493340887-b7bfff550145?w=400&q=80', c1:'#2C0A1A', c2:'#100308' },
+  { name:'New York', count:'520', c1:'#0A1A2C', c2:'#050A10' },
+  { name:'Miami', count:'340', c1:'#2C1208', c2:'#0A0300' },
+  { name:'Los Angeles', count:'410', c1:'#2C1A00', c2:'#0F0700' },
+  { name:'Atlanta', count:'210', c1:'#1A2C0A', c2:'#080F03' },
+  { name:'Chicago', count:'185', c1:'#0A1A2C', c2:'#030810' },
+  { name:'Houston', count:'150', c1:'#2C0A1A', c2:'#100308' },
 ]
 
 export default function HomePage({ onNavigate }) {
@@ -123,7 +123,7 @@ export default function HomePage({ onNavigate }) {
           {/* Cities */}
           <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fill,minmax(150px,1fr))', gap:'0.7rem', marginBottom:'2.5rem' }}>
             {CITIES.map(city => (
-              <div key={city.name} onClick={() => onNavigate('discover')} style={{ position:'relative', aspectRatio:'4/3', borderRadius:'13px', overflow:'hidden', background:`linear-gradient(160deg,${city.c1},${city.c2})`, backgroundImage:city.img?`url(${city.img})`:'none', backgroundSize:'cover', backgroundPosition:'center', cursor:'pointer', transition:'transform 0.2s' }}
+              <div key={city.name} onClick={() => onNavigate('discover')} style={{ position:'relative', aspectRatio:'4/3', borderRadius:'13px', overflow:'hidden', background:`linear-gradient(160deg,${city.c1},${city.c2})`, cursor:'pointer', transition:'transform 0.2s' }}
                 onMouseEnter={e => e.currentTarget.style.transform='scale(1.03)'}
                 onMouseLeave={e => e.currentTarget.style.transform=''}
               >
